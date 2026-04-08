@@ -5,9 +5,9 @@
 
 
 ## Problem statement
-+ Bệnh nhân: Không biết khám khoa nào, bác sĩ nào phù hợp và lúc nào trống lịch → Gây hoang mang.
++ Bệnh nhân: Không biết triệu chứng của mình nên khám khoa nào, bác sĩ nào phù hợp và lúc nào trống lịch → Dễ gây hoang mang cho bệnh nhân, lễ tân dễ bị quá tải với nhiều câu hỏi lặp lại.
 
-+ Bệnh viện: Bệnh nhân khám sai khoa và phân bổ lịch khám không đồng đều → Gây lãng phí nguồn lực.
++ Bệnh viện: Bệnh nhân khám sai khoa và phân bổ lịch khám không đồng đều → Gây lãng phí nguồn lực, tốn thời gian.
 
 
 📋 AI PRODUCT SPEC: VINMEC AI PATIENT COPILOT
@@ -24,9 +24,9 @@ Learning Signal (Tín hiệu học tập): Tỉ lệ bệnh nhân nhấn "Đặt
 ## User Stories (4 paths)
 Happy Path (Thành công): Bệnh nhân nhập "đau bụng, buồn nôn" -> AI xác định Khoa Tiêu hóa -> AI check thấy bác sĩ A đang trống lịch -> Bệnh nhân đặt lịch thành công trong 1 phút.
 
-Low-confidence Path (Cần xác nhận): Triệu chứng mâu thuẫn (vừa đau ngực vừa đau dạ dày) -> AI hỏi thêm câu hỏi sàng lọc để loại trừ rủi ro tim mạch trước khi gợi ý khoa Tiêu hóa hoặc Tim mạch.
+Low-confidence Path (Cần xác nhận): Khi bệnh nhân cung cấp nhiều triệu chứng, hệ thống sẽ phân nhóm và sắp xếp theo mức độ ưu tiên lâm sàng. Các triệu chứng có nguy cơ cao sẽ được sàng lọc trước. Chỉ sau khi loại trừ nguy cơ khẩn cấp, hệ thống mới tiếp tục gợi ý chuyên khoa phù hợp cho phần triệu chứng còn lại.
 
-Failure Path (Từ chối/Chuyển hướng): Bệnh nhân nhập triệu chứng cấp cứu nghiêm trọng (khó thở cấp, co giật) -> AI nhận diện rủi ro cao, dừng đặt lịch và hiển thị ngay hotline cấp cứu Vinmec kèm nút gọi nhanh.
+Failure Path (Từ chối/Chuyển hướng): Trong những trường hợp: bệnh nhân có triệu chứng quá phức tạp, thông tin không đủ để định hướng an toàn, có yêu cầu đặc biệt ngoài phạm vi agent, AI không tìm được phương án đặt lịch phù hợp, cần nhân viên hỗ trợ -> AI không tự xử lý tiếp và cần chuyển sang người thật / kênh phù hợp / quy trình phù hợp hơn.
 
 Correction Path (Sửa lỗi): AI gợi ý khoa Sản cho bệnh nhân nam (do nhầm lẫn từ khóa) -> Bệnh nhân phản hồi "Tôi là nam" -> AI xin lỗi, cập nhật context và gợi ý lại khoa Thận tiết niệu.
 
@@ -78,7 +78,7 @@ Process: 1. Phân loại triệu chứng.
 Output: Tên Khoa + Danh sách bác sĩ kèm trạng thái trống lịch + Link đặt lịch nhanh.
 
 ## Phân công 
-Quân:
+Quân: 
 Chung:
 Dương:
 Đức Anh:
