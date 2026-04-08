@@ -1,10 +1,18 @@
-Ý tưởng: Vinmec AI Patient Booking Copilot 
-Vấn đề:
+**SPEC draft - A4 - C401**
+
+## Track: Vinmec
+Ý tưởng: Vinmec AI Patient Booking Copilot
+
+
+## Problem statement
 + Bệnh nhân: Không biết khám khoa nào, bác sĩ nào phù hợp và lúc nào trống lịch → Gây hoang mang.
 
 + Bệnh viện: Bệnh nhân khám sai khoa và phân bổ lịch khám không đồng đều → Gây lãng phí nguồn lực.
+
+
 📋 AI PRODUCT SPEC: VINMEC AI PATIENT COPILOT
-1. AI Product Canvas
+## Canvas
+
 Value (Giá trị): Giảm sự mơ hồ của bệnh nhân thông qua việc điều hướng đúng khoa chuyên môn ngay từ đầu. Tăng hiệu quả vận hành bệnh viện bằng cách tối ưu hóa lịch trống của bác sĩ và phòng khám.
 
 Trust (Tin cậy): AI giải thích lý do đề xuất khoa dựa trên triệu chứng. Hiển thị trạng thái sẵn sàng thực tế (Real-time availability). Luôn kèm Disclaimer: "AI hỗ trợ điều hướng, không thay thế chẩn đoán lâm sàng".
@@ -13,7 +21,7 @@ Feasibility (Khả thi): Sử dụng LLM (GPT-4o/Claude) kết hợp RAG trên b
 
 Learning Signal (Tín hiệu học tập): Tỉ lệ bệnh nhân nhấn "Đặt lịch" sau khi được AI tư vấn; Phản hồi của bác sĩ về mức độ chính xác của tóm tắt triệu chứng mà AI gửi tới.
 
-2. User Stories (4 paths)
+## User Stories (4 paths)
 Happy Path (Thành công): Bệnh nhân nhập "đau bụng, buồn nôn" -> AI xác định Khoa Tiêu hóa -> AI check thấy bác sĩ A đang trống lịch -> Bệnh nhân đặt lịch thành công trong 1 phút.
 
 Low-confidence Path (Cần xác nhận): Triệu chứng mâu thuẫn (vừa đau ngực vừa đau dạ dày) -> AI hỏi thêm câu hỏi sàng lọc để loại trừ rủi ro tim mạch trước khi gợi ý khoa Tiêu hóa hoặc Tim mạch.
@@ -22,7 +30,7 @@ Failure Path (Từ chối/Chuyển hướng): Bệnh nhân nhập triệu chứn
 
 Correction Path (Sửa lỗi): AI gợi ý khoa Sản cho bệnh nhân nam (do nhầm lẫn từ khóa) -> Bệnh nhân phản hồi "Tôi là nam" -> AI xin lỗi, cập nhật context và gợi ý lại khoa Thận tiết niệu.
 
-3. Eval Metrics
+##  Eval Metrics
 Metric 1 - Routing Accuracy (Độ chính xác điều hướng): > 90% bệnh nhân được AI gợi ý đúng khoa chuyên môn (đối chiếu với chẩn đoán cuối cùng của bác sĩ).
 
 Metric 2 - Booking Friction (Độ mượt đặt lịch): Thời gian hoàn thành đặt lịch < 90 giây.
@@ -31,7 +39,7 @@ Metric 3 - Availability Match (Độ khớp lịch): 100% bác sĩ được gợ
 
 🚩 Red Flag: AI chẩn đoán sai các triệu chứng thuộc nhóm nguy cơ tử vong cao (Red Flags y tế) thành bệnh nhẹ.
 
-4. Top 3 Failure Modes (Trigger/Hậu quả/Mitigation)
+## Top 3 Failure Modes (Trigger/Hậu quả/Mitigation)
 Trigger: Hệ thống API lịch khám của bệnh viện bị chậm/lỗi.
 
 Hậu quả: AI gợi ý bác sĩ đã kín lịch, gây bức xúc khi bệnh nhân thanh toán/đến nơi.
@@ -50,14 +58,14 @@ Hậu quả: Bỏ lỡ thời gian vàng điều trị.
 
 Mitigation: Luôn hiển thị nút "Kết nối với tư vấn viên thật" và nhắc nhở "Khám trực tiếp là bắt buộc".
 
-5. ROI 3 kịch bản
+## ROI 3 kịch bản
 Conservative (Thận trọng): Giảm 15% tải trọng cho Call Center của Vinmec nhờ khách hàng tự đặt lịch qua AI.
 
 Realistic (Thực tế): Giảm 30% tỉ lệ bệnh nhân khám sai khoa; Tăng 10% doanh thu nhờ lấp đầy các khung giờ trống của bác sĩ thông qua gợi ý thông minh.
 
 Optimistic (Lạc quan): Trở thành cổng vào duy nhất (Smart Gate) của Vinmec, tăng tỉ lệ giữ chân bệnh nhân (Retention) nhờ trải nghiệm khám bệnh "không ma sát".
 
-6. Mini AI Spec (1 trang)
+## Mini AI Spec (1 trang)
 Mô hình: RAG Agentic Workflow.
 
 Input: Văn bản mô tả triệu chứng, độ tuổi, giới tính, lịch sử khám (nếu có).
@@ -68,3 +76,11 @@ Process: 1. Phân loại triệu chứng.
 4. Rank bác sĩ dựa trên chuyên môn phù hợp nhất.
 
 Output: Tên Khoa + Danh sách bác sĩ kèm trạng thái trống lịch + Link đặt lịch nhanh.
+
+## Phân công 
+Quân:
+Chung:
+Dương:
+Đức Anh:
+Đạt:
+Hiệp: 
