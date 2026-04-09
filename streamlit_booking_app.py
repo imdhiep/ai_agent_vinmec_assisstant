@@ -43,7 +43,7 @@ INJURY_NEEDS_CLARIFICATION = [
 SPECIALTY_HINTS = {
     "Mắt": ["dau mat", "mo mat", "do mat", "cay mat", "ngua mat", "nhuc mat", "nhin mo"],
     "Tai - Mũi - Họng": ["dau hong", "viem hong", "nghet mui", "so mui", "dau tai", "u tai"],
-    "Da liễu": ["noi man", "man ngua", "ngua da", "di ung da", "phat ban", "noi mun"],
+    "Da liễu": ["noi man", "man ngua", "ngua da", "di ung da", "phat ban", "noi mun", "mun", "mun viem", "mun trung ca"],
     "Nội Tiêu hoá": ["dau bung", "buon non", "tieu chay", "tao bon", "day bung", "o chua"],
     "Nội Thận - Tiết niệu": ["tieu buot", "tieu rat", "dau hong lung", "tieu dem"],
     "Sản phụ khoa": ["ra huyet", "kinh nguyet", "mang thai", "dau bung duoi", "phu khoa"],
@@ -112,6 +112,28 @@ def infer_urgency_level(normalized: str) -> str:
     if any(keyword in normalized for keyword in ["dau", "sung", "rat", "ngua", "ho", "met moi keo dai"]):
         return "medium"
     return "low"
+
+
+def build_triage_user_message(chat_messages: list[dict[str, Any]]) -> str:
+    collected: list[str] = []
+    for message in reversed(chat_messages):
+        if message.get("role") == "user":
+            content = str(message.get("content", "")).strip()
+            if content:
+                collected.append(content)
+            if len(collected) >= 3:
+                break
+            continue
+
+        if not collected:
+            continue
+
+        if message.get("role") == "assistant" and message.get("kind") == "analysis" and message.get("status") == "ask_follow_up":
+            continue
+
+        break
+
+    return "\n".join(reversed(collected))
 
 
 def inject_styles() -> None:
@@ -465,6 +487,7 @@ def run() -> None:
 
     if st.session_state.chat_messages and st.session_state.chat_messages[-1]["role"] == "user":
         latest_prompt = st.session_state.chat_messages[-1]["content"]
+        triage_user_message = build_triage_user_message(st.session_state.chat_messages) or latest_prompt
         selected_facility_title = st.session_state.get("selected_facility_title", chosen_title)
         selected_facility = facility_map[selected_facility_title]
         specialties = catalog_repository.get_specialties_by_facility(selected_facility["id"])
@@ -475,7 +498,7 @@ def run() -> None:
                         token=token,
                         base_url=base_url,
                         model_name=model_name,
-                        user_message=latest_prompt,
+                        user_message=triage_user_message,
                         selected_facility=selected_facility,
                         specialties=specialties,
                     )
@@ -1013,7 +1036,8 @@ def ask_triage_agent(
 
     department_titles = [item["title"] for item in specialties]
     system_prompt = load_system_prompt()
-    response = client.chat.completions.create(
+    try:
+        response = client.chat.completions.create(
         model=model_name,
         temperature=0.15,
         messages=[
@@ -1037,7 +1061,9 @@ def ask_triage_agent(
                 ),
             },
         ],
-    )
+        )
+    except Exception:
+        return fallback_triage(user_message, specialties)
     content = response.choices[0].message.content if response.choices else ""
     parsed = extract_json_block(content or "")
     if not parsed:
