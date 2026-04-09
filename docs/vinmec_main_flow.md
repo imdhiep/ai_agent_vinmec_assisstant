@@ -1,6 +1,6 @@
 # Luồng Flow Chính — AI Patient Copilot cho Vinmec
 
-Tài liệu này mô tả **luồng vận hành chính** của giải pháp **AI Patient Copilot cho Vinmec** dưới dạng dễ đọc và dễ nhúng vào SPEC / slide / GitHub.
+Tài liệu này mô tả **luồng vận hành chính** của giải pháp **AI Patient Copilot cho Vinmec** dưới dạng dễ đọc và dễ nhúng vào SPEC / slide / GitHub và sử dụng để làm demo script.
 
 ---
 
