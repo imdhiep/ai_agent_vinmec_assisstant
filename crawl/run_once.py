@@ -13,7 +13,6 @@ from crawl.monitor import CrawlMonitor
 from crawl.vinmec_crawler import (
     DEFAULT_TARGET_FACILITY_TITLE,
     crawl_catalog,
-    save_catalog_to_database,
 )
 
 
@@ -26,8 +25,8 @@ def main() -> None:
             days_ahead=3,
             monitor=monitor,
             target_facility_title=DEFAULT_TARGET_FACILITY_TITLE,
+            persist_to_db=True,
         )
-        save_catalog_to_database(payload, monitor=monitor)
         monitor.success("Đã crawl và lưu vào database SQLite thành công.")
         print(f"Database: {DB_PATH}")
         print(f"Số cơ sở: {len(payload['facilities'])}")

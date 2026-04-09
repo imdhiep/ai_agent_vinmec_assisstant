@@ -79,6 +79,7 @@ Script này sẽ:
 - gọi các API public liên quan để lấy cơ sở, chuyên khoa, bác sĩ, slot
 - lưu snapshot raw vào thư mục `crawl/raw/`
 - chuẩn hóa và ghi vào SQLite tại `data/vinmec_catalog.db`
+- ghi dần vào database ngay trong lúc crawl, nên nếu lỗi giữa chừng thì phần đã lấy được vẫn còn trong DB
 
 Từ những lần chạy app sau, Streamlit sẽ chỉ đọc dữ liệu từ database này, không crawl realtime nữa.
 
