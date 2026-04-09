@@ -43,7 +43,7 @@ INJURY_NEEDS_CLARIFICATION = [
 SPECIALTY_HINTS = {
     "Mắt": ["dau mat", "mo mat", "do mat", "cay mat", "ngua mat", "nhuc mat", "nhin mo"],
     "Tai - Mũi - Họng": ["dau hong", "viem hong", "nghet mui", "so mui", "dau tai", "u tai"],
-    "Da liễu": ["noi man", "man ngua", "ngua da", "di ung da", "phat ban", "noi mun", "mun", "mun viem", "mun trung ca"],
+    "Da liễu": ["noi man", "man ngua", "ngua da", "di ung da", "phat ban", "noi mun"],
     "Nội Tiêu hoá": ["dau bung", "buon non", "tieu chay", "tao bon", "day bung", "o chua"],
     "Nội Thận - Tiết niệu": ["tieu buot", "tieu rat", "dau hong lung", "tieu dem"],
     "Sản phụ khoa": ["ra huyet", "kinh nguyet", "mang thai", "dau bung duoi", "phu khoa"],
@@ -112,95 +112,6 @@ def infer_urgency_level(normalized: str) -> str:
     if any(keyword in normalized for keyword in ["dau", "sung", "rat", "ngua", "ho", "met moi keo dai"]):
         return "medium"
     return "low"
-
-
-def build_triage_user_message(chat_messages: list[dict[str, Any]]) -> str:
-    collected: list[str] = []
-    for message in reversed(chat_messages):
-        if message.get("role") == "user":
-            content = str(message.get("content", "")).strip()
-            if content:
-                collected.append(content)
-            if len(collected) >= 3:
-                break
-            continue
-
-        if not collected:
-            continue
-
-        if message.get("role") == "assistant" and message.get("kind") == "analysis" and message.get("status") == "ask_follow_up":
-            continue
-
-        break
-
-    return "\n".join(reversed(collected))
-
-
-def is_booking_confirmation_intent(normalized: str) -> bool:
-    intent_keywords = [
-        "chot",
-        "dat lich",
-        "dat bac si",
-        "chon bac si",
-        "lay bac si",
-        "giu lich",
-        "xac nhan lich",
-        "chot lich",
-    ]
-    return any(keyword in normalized for keyword in intent_keywords)
-
-
-def find_last_recommendation_message(chat_messages: list[dict[str, Any]]) -> dict[str, Any] | None:
-    for message in reversed(chat_messages):
-        if message.get("role") == "assistant" and message.get("kind") == "analysis" and message.get("status") == "recommend":
-            return message
-    return None
-
-
-def match_doctor_from_message(user_message: str, recommendation_message: dict[str, Any] | None) -> dict[str, Any] | None:
-    if not recommendation_message:
-        return None
-
-    normalized_user = normalize(user_message)
-    doctors = recommendation_message.get("doctors", [])
-    for doctor in doctors:
-        heading = str(doctor.get("heading", "")).strip()
-        normalized_heading = normalize(heading)
-        if normalized_heading and normalized_heading in normalized_user:
-            return doctor
-
-        for token in normalized_heading.replace("bac si", "").split():
-            if len(token) >= 4 and token in normalized_user:
-                return doctor
-    return None
-
-
-def build_booking_success_message(
-    doctor: dict[str, Any],
-    recommendation_message: dict[str, Any],
-    selected_facility: dict[str, Any],
-) -> dict[str, Any]:
-    first_slot = doctor.get("first_slot")
-    slot_text = format_slot(first_slot)
-    fee = (doctor.get("price") or {}).get("local")
-    fee_text = f"{fee:,} VND".replace(",", ".") if fee else "Liên hệ xác nhận"
-    specialty_title = recommendation_message.get("department_title", "chuyên khoa phù hợp")
-    return {
-        "role": "assistant",
-        "kind": "analysis",
-        "status": "booking_success",
-        "assistant_message": (
-            f"Đã chốt lịch khám thành công với {format_doctor_label(doctor)} tại {selected_facility['title']}."
-        ),
-        "department_title": specialty_title,
-        "doctor_name": format_doctor_label(doctor),
-        "facility_title": selected_facility["title"],
-        "slot_text": slot_text,
-        "fee_text": fee_text,
-        "reasoning": (
-            f"Lịch gần nhất của bác sĩ là {slot_text}. Bạn có thể dùng lựa chọn này như bước chốt lịch trong demo đặt khám."
-        ),
-    }
 
 
 def inject_styles() -> None:
@@ -554,34 +465,21 @@ def run() -> None:
 
     if st.session_state.chat_messages and st.session_state.chat_messages[-1]["role"] == "user":
         latest_prompt = st.session_state.chat_messages[-1]["content"]
-        triage_user_message = build_triage_user_message(st.session_state.chat_messages) or latest_prompt
         selected_facility_title = st.session_state.get("selected_facility_title", chosen_title)
         selected_facility = facility_map[selected_facility_title]
         specialties = catalog_repository.get_specialties_by_facility(selected_facility["id"])
-        normalized_prompt = normalize(latest_prompt)
-        recommendation_message = find_last_recommendation_message(st.session_state.chat_messages[:-1])
-        selected_doctor = None
-        if is_booking_confirmation_intent(normalized_prompt):
-            selected_doctor = match_doctor_from_message(latest_prompt, recommendation_message)
         with left_col:
             with st.chat_message("assistant"):
                 with st.spinner("AI đang phân tích triệu chứng và đối chiếu chuyên khoa phù hợp..."):
-                    if selected_doctor and recommendation_message:
-                        assistant_message = build_booking_success_message(
-                            selected_doctor,
-                            recommendation_message,
-                            selected_facility,
-                        )
-                    else:
-                        triage = ask_triage_agent(
-                            token=token,
-                            base_url=base_url,
-                            model_name=model_name,
-                            user_message=triage_user_message,
-                            selected_facility=selected_facility,
-                            specialties=specialties,
-                        )
-                        assistant_message = build_assistant_message(triage, selected_facility, specialties)
+                    triage = ask_triage_agent(
+                        token=token,
+                        base_url=base_url,
+                        model_name=model_name,
+                        user_message=latest_prompt,
+                        selected_facility=selected_facility,
+                        specialties=specialties,
+                    )
+                    assistant_message = build_assistant_message(triage, selected_facility, specialties)
                     render_analysis_payload(assistant_message)
         st.session_state.chat_messages.append(assistant_message)
         st.rerun()
@@ -1115,8 +1013,7 @@ def ask_triage_agent(
 
     department_titles = [item["title"] for item in specialties]
     system_prompt = load_system_prompt()
-    try:
-        response = client.chat.completions.create(
+    response = client.chat.completions.create(
         model=model_name,
         temperature=0.15,
         messages=[
@@ -1140,9 +1037,7 @@ def ask_triage_agent(
                 ),
             },
         ],
-        )
-    except Exception:
-        return fallback_triage(user_message, specialties)
+    )
     content = response.choices[0].message.content if response.choices else ""
     parsed = extract_json_block(content or "")
     if not parsed:
@@ -1412,24 +1307,6 @@ def render_analysis_payload(message: dict[str, Any]) -> None:
         )
         if message.get("reasoning"):
             st.caption(message["reasoning"])
-    elif status == "booking_success":
-        st.markdown(
-            f"""
-            <div class="vm-analysis-card">
-              <div class="vm-pill-row">
-                <div class="vm-pill">Booking Success</div>
-                <div class="vm-pill">{message.get('facility_title', '')}</div>
-              </div>
-              <div class="vm-analysis-title">Đặt lịch thành công</div>
-              <div class="vm-analysis-text">{message['assistant_message']}</div>
-              <div class="vm-analysis-text">Bác sĩ đã chốt: <strong>{message.get('doctor_name', 'Đang cập nhật')}</strong></div>
-              <div class="vm-analysis-text">Slot dự kiến: <strong>{message.get('slot_text', 'Liên hệ xác nhận')}</strong></div>
-              <div class="vm-analysis-text">Phí khám dự kiến: <strong>{message.get('fee_text', 'Liên hệ xác nhận')}</strong></div>
-              <div class="vm-disclaimer">Đây là bước chốt lịch trong luồng demo đặt khám. Bạn vẫn nên xác nhận lại thông tin cá nhân và lịch hẹn khi cần.</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
     else:
         st.markdown(message["assistant_message"])
 
@@ -1507,73 +1384,6 @@ def render_right_panel(facilities: list[dict[str, Any]], selected_facility: dict
         unsafe_allow_html=True,
     )
 
-    if st.button("Hồ sơ người dùng", key="toggle_user_profiles", use_container_width=True):
-        st.session_state.profile_panel_open = not st.session_state.get("profile_panel_open", False)
-
-    if st.session_state.get("profile_panel_open", False):
-        render_user_profile_panel()
-
-
-def render_user_profile_panel() -> None:
-    profiles = st.session_state.get("customer_profiles", [])
-    options = ["Thêm hồ sơ mới"] + [f"{item['full_name']} - {item['phone']}" for item in profiles]
-    selected_index = st.selectbox(
-        "Hồ sơ khách hàng",
-        options=range(len(options)),
-        format_func=lambda idx: options[idx],
-        key="profile_selected_index",
-    )
-
-    selected_profile = profiles[selected_index - 1] if selected_index > 0 else None
-    default_name = selected_profile["full_name"] if selected_profile else ""
-    default_gender = selected_profile["gender"] if selected_profile else "Nam"
-    default_phone = selected_profile["phone"] if selected_profile else ""
-
-    st.markdown("### Thông tin khách hàng")
-    with st.form("customer_profile_form", clear_on_submit=False):
-        full_name = st.text_input("Họ và tên*", value=default_name, placeholder="Họ và tên")
-        gender = st.radio("Giới tính*", ["Nam", "Nữ"], index=0 if default_gender == "Nam" else 1, horizontal=True)
-        phone = st.text_input("Số điện thoại*", value=default_phone, placeholder="Số điện thoại")
-        left_col, right_col = st.columns(2)
-        with left_col:
-            save_clicked = st.form_submit_button(
-                "Cập nhật hồ sơ" if selected_profile else "Thêm hồ sơ",
-                use_container_width=True,
-            )
-        with right_col:
-            reset_clicked = st.form_submit_button("Làm mới", use_container_width=True)
-
-    if reset_clicked:
-        st.session_state.profile_selected_index = 0
-        st.rerun()
-
-    if save_clicked:
-        full_name = full_name.strip()
-        phone = phone.strip()
-        if not full_name or not phone:
-            st.error("Vui lòng nhập đầy đủ họ và tên và số điện thoại.")
-        else:
-            payload = {
-                "full_name": full_name,
-                "gender": gender,
-                "phone": phone,
-            }
-            if selected_profile:
-                profiles[selected_index - 1] = payload
-                st.success("Đã cập nhật hồ sơ khách hàng.")
-            else:
-                profiles.append(payload)
-                st.session_state.profile_selected_index = len(profiles)
-                st.success("Đã thêm hồ sơ khách hàng.")
-            st.session_state.customer_profiles = profiles
-
-    if selected_profile and st.button("Xóa hồ sơ", key="delete_customer_profile", use_container_width=True):
-        del profiles[selected_index - 1]
-        st.session_state.customer_profiles = profiles
-        st.session_state.profile_selected_index = 0
-        st.success("Đã xóa hồ sơ khách hàng.")
-        st.rerun()
-
 
 def initial_messages() -> list[dict[str, Any]]:
     return [
@@ -1591,12 +1401,6 @@ def initial_messages() -> list[dict[str, Any]]:
 def ensure_session() -> None:
     if "chat_messages" not in st.session_state:
         st.session_state.chat_messages = initial_messages()
-    if "customer_profiles" not in st.session_state:
-        st.session_state.customer_profiles = []
-    if "profile_panel_open" not in st.session_state:
-        st.session_state.profile_panel_open = False
-    if "profile_selected_index" not in st.session_state:
-        st.session_state.profile_selected_index = 0
 
 
 def run_legacy() -> None:
