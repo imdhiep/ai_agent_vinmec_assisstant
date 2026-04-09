@@ -113,6 +113,13 @@ def read_triage_map() -> list[dict]:
     return json.loads(TRIAGE_MAP_PATH.read_text(encoding="utf-8"))
 
 
+def get_secret(name: str, default: str = "") -> str:
+    try:
+        return st.secrets.get(name, default)
+    except Exception:
+        return default
+
+
 def normalize(text: str) -> str:
     lowered = " ".join(text.lower().strip().split())
     normalized = unicodedata.normalize("NFD", lowered)
@@ -389,7 +396,7 @@ def sidebar_settings() -> tuple[str | None, str, str]:
     st.sidebar.header("Cấu hình agent")
     st.sidebar.caption("Bạn có thể dán GitHub Models token tại đây hoặc lưu vào `.env` / `.streamlit/secrets.toml`.")
     env_token = os.getenv("GITHUB_MODELS_TOKEN")
-    secret_token = st.secrets.get("GITHUB_MODELS_TOKEN") if hasattr(st, "secrets") else None
+    secret_token = get_secret("GITHUB_MODELS_TOKEN")
     token = st.sidebar.text_input(
         "GitHub Models token",
         type="password",
@@ -398,11 +405,11 @@ def sidebar_settings() -> tuple[str | None, str, str]:
     )
     base_url = st.sidebar.text_input(
         "Base URL",
-        value=os.getenv("GITHUB_MODELS_BASE_URL", DEFAULT_BASE_URL),
+        value=get_secret("GITHUB_MODELS_BASE_URL", os.getenv("GITHUB_MODELS_BASE_URL", DEFAULT_BASE_URL)),
     )
     model_name = st.sidebar.text_input(
         "Model",
-        value=os.getenv("GITHUB_MODELS_MODEL", DEFAULT_MODEL),
+        value=get_secret("GITHUB_MODELS_MODEL", os.getenv("GITHUB_MODELS_MODEL", DEFAULT_MODEL)),
     )
     st.sidebar.markdown(
         """
