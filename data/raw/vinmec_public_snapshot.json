@@ -1,0 +1,27 @@
+{
+  "source_url": "https://www.vinmec.com/vie/dang-ky-kham/",
+  "captured_note": "Public booking page structure and hotline list adapted into mock dataset.",
+  "facilities_seen": [
+    "Vinmec Times City (HN)",
+    "Vinmec Central Park",
+    "Vinmec Smart City",
+    "Vinmec Da Nang",
+    "Vinmec Nha Trang",
+    "Vinmec Hai Phong",
+    "Vinmec Ha Long",
+    "Vinmec Phu Quoc",
+    "Vinmec Can Tho",
+    "Vinmec Ocean Park 2"
+  ],
+  "booking_fields_seen": [
+    "Benh vien/phong kham Vinmec",
+    "Chuyen khoa",
+    "Bac si",
+    "Thoi gian kham",
+    "Ho va ten",
+    "So dien thoai",
+    "Ngay thang nam sinh",
+    "Email",
+    "Ly do kham"
+  ]
+}

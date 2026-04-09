@@ -1,0 +1,30 @@
+[
+  {
+    "id": "vinmec-times-city",
+    "name": "Bệnh viện Đa khoa Quốc tế Vinmec Times City",
+    "city": "Hà Nội",
+    "hotline": "024 3974 3556",
+    "address": "458 Minh Khai, Hai Bà Trưng, Hà Nội"
+  },
+  {
+    "id": "vinmec-smart-city",
+    "name": "Bệnh viện Đa khoa Quốc tế Vinmec Smart City",
+    "city": "Hà Nội",
+    "hotline": "024 3208 5678",
+    "address": "KĐT Smart City, Nam Từ Liêm, Hà Nội"
+  },
+  {
+    "id": "vinmec-da-nang",
+    "name": "Bệnh viện Đa khoa Quốc tế Vinmec Đà Nẵng",
+    "city": "Đà Nẵng",
+    "hotline": "0236 371 1111",
+    "address": "Nam Kỳ Khởi Nghĩa, Ngũ Hành Sơn, Đà Nẵng"
+  },
+  {
+    "id": "vinmec-central-park",
+    "name": "Bệnh viện Đa khoa Quốc tế Vinmec Central Park",
+    "city": "Hồ Chí Minh",
+    "hotline": "028 3622 1166",
+    "address": "208 Nguyễn Hữu Cảnh, Bình Thạnh, Hồ Chí Minh"
+  }
+]

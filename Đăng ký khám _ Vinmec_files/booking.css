@@ -1,0 +1,198 @@
+.content_info_book {
+  background: #fff;
+  padding: 40px 30px;
+  margin-bottom: 60px;
+}
+.list_two_booking .col-6 {
+  width: calc(50% - 30px);
+  margin: 0 15px;
+  background: #fff;
+  border-radius: 10px;
+}
+.list_two_booking .col-12 {
+  margin: 0 15px;
+}
+.list_two_booking {
+  margin: 30px -15px;
+}
+.input_book {
+  border: 1px solid #ddd;
+  padding: 15px 15px;
+  width: 100%;
+  color: #999;
+  background: #f9f9f9;
+}
+.style_check {
+  border: 1px solid #ddd;
+}
+.item_date {
+  background: #f2f2f2;
+  padding: 10px 5px;
+  border-radius: 7px;
+  text-align: center;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 70px;
+  margin-bottom: 10px;
+}
+
+.item_date:hover .cl99,
+.item_date.active .cl99 {
+  color: #fff;
+}
+.item_time {
+  background: #f2f2f2;
+  padding: 5px;
+  border-radius: 7px;
+  text-align: center;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 70px;
+  margin-bottom: 10px;
+}
+.item_time.disable {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.item_time.disable:hover {
+  background: #f2f2f2;
+  color: #333;
+}
+.item_time:hover,
+.item_time.active {
+  background: #51be9d;
+  color: #fff;
+}
+.input_gender {
+  margin-left: 15px;
+}
+.input_gender label {
+  margin-left: 15px;
+  color: #999;
+}
+.input_gender label input {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+.btn_send_book {
+  background: #51be9d;
+  padding: 15px 60px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+}
+.btn_send_book:hover {
+  background: #0076c0;
+  color: #fff;
+}
+.date_other {
+  width: 18px;
+  background: none;
+}
+.reload_code {
+  cursor: pointer;
+}
+.input_code {
+  margin: 0px 0 30px;
+}
+.item_otp {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 22px;
+}
+.btn_OTP {
+  background: #51be9d;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+.btn_OTP:hover {
+  background: #0076c0;
+}
+.title_check {
+  color: #0076c0;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.title_check img {
+  width: 31px;
+  margin-right: 13px;
+}
+.bg_gray {
+  background: #f2f7fb;
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+.tbl_check {
+  width: 100%;
+}
+.tbl_check td {
+  padding: 10px 0;
+}
+.w550 {
+  width: 550px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .content_info_book {
+    padding: 30px 20px;
+  }
+  .list_two_booking .col-6 {
+    width: 100%;
+  }
+  .item_otp {
+    width: 45px;
+    height: 45px;
+  }
+  .w550 {
+    max-width: 100%;
+  }
+}
+#loading-screen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#loading-screen::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 50%;
+  top: 50%;
+  border: 5px solid #eee;
+  border-top: 5px solid #555;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.hide-otp {
+  display: none;
+}

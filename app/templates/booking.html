@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="site-header">
+  <div class="logo-group">
+    <div class="logo-mark">V</div>
+    <div>
+      <p class="eyebrow">VINMEC AI PATIENT COPILOT</p>
+      <h1>Dang ky kham thong minh</h1>
+    </div>
+  </div>
+  <a class="header-link" href="#">Dat lich hen</a>
+</header>
+
+<main class="page-shell">
+  <section class="hero-card">
+    <div class="hero-copy">
+      <p class="chip">Booking only</p>
+      <h2>Dat dung khoa, dung bac si, dung khung gio con trong.</h2>
+      <p>
+        He thong chi ho tro dieu huong dat kham. Neu bac si ban chon khong con lich,
+        copilot se tu dong de xuat slot gan nhat, bac si khac cung khoa, hoac co so khac.
+      </p>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric">
+        <span>Routing</span>
+        <strong>> 90%</strong>
+      </div>
+      <div class="metric">
+        <span>Booking</span>
+        <strong>< 90s</strong>
+      </div>
+      <div class="metric">
+        <span>Availability</span>
+        <strong>Realtime mock</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <p class="section-kicker">Noi dung chi tiet dat hen</p>
+        <h3>Thong tin dat lich</h3>
+      </div>
+
+      <form id="booking-form" class="booking-form">
+        <label>
+          Benh vien/phong kham Vinmec *
+          <select id="facility_id" name="facility_id"></select>
+        </label>
+
+        <label>
+          Trieu chung / ly do kham *
+          <textarea id="symptom_text" name="symptom_text" rows="4" placeholder="Vi du: dat lich kham vi dau bung, buon non va muon kham som tai Ha Noi"></textarea>
+        </label>
+
+        <div class="inline-grid">
+          <label>
+            Tuoi
+            <input id="age" name="age" type="number" min="0" max="120" placeholder="30" />
+          </label>
+          <label>
+            Gioi tinh
+            <select id="gender" name="gender">
+              <option value="">Chon gioi tinh</option>
+              <option value="male">Nam</option>
+              <option value="female">Nu</option>
+              <option value="other">Khac</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="button" id="recommend-btn" class="primary-btn">Phan tich va goi y lich kham</button>
+
+        <div id="recommendation-panel" class="recommendation-panel hidden"></div>
+
+        <div class="panel-head compact">
+          <h3>Thong tin khach hang</h3>
+        </div>
+
+        <div class="inline-grid">
+          <label>
+            Ho va ten *
+            <input id="patient_name" name="patient_name" type="text" placeholder="Nguyen Van A" />
+          </label>
+          <label>
+            So dien thoai *
+            <input id="phone" name="phone" type="tel" placeholder="0900123456" />
+          </label>
+        </div>
+
+        <div class="inline-grid">
+          <label>
+            Ngay sinh *
+            <input id="birth_date" name="birth_date" type="date" />
+          </label>
+          <label>
+            Email
+            <input id="email" name="email" type="email" placeholder="abc@email.com" />
+          </label>
+        </div>
+
+        <input id="department_id" name="department_id" type="hidden" />
+        <input id="doctor_id" name="doctor_id" type="hidden" />
+        <input id="slot_id" name="slot_id" type="hidden" />
+
+        <button type="submit" class="primary-btn">Gui thong tin dat lich</button>
+      </form>
+    </div>
+
+    <aside class="panel side-panel">
+      <div class="panel-head">
+        <p class="section-kicker">Booking rules</p>
+        <h3>Pham vi tra loi</h3>
+      </div>
+      <ul class="rule-list">
+        <li>Chi tra loi ve dat kham, chuyen khoa, bac si, co so va lich trong.</li>
+        <li>Khong chan doan benh va khong tu van dieu tri.</li>
+        <li>Neu co dau hieu khan cap, he thong se dung luong booking tu dong.</li>
+        <li>Neu bac si het lich, he thong uu tien slot gan nhat va phuong an thay the.</li>
+      </ul>
+
+      <div id="booking-result" class="result-card">
+        <p class="muted">Chua co yeu cau dat lich.</p>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+{% endblock %}

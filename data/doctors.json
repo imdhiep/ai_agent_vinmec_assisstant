@@ -1,0 +1,79 @@
+[
+  {
+    "id": "bs-nguyen-hoang-minh",
+    "name": "Nguyễn Hoàng Minh",
+    "title": "TS.BS",
+    "department_id": "tieu-hoa",
+    "facility_ids": ["vinmec-times-city", "vinmec-smart-city"],
+    "specialties": ["Nội soi tiêu hóa", "Đau bụng cấp", "Trào ngược dạ dày"],
+    "bio": "Chuyên gia tiêu hóa với kinh nghiệm điều hướng và thăm khám nội tổng quát.",
+    "languages": ["vi", "en"],
+    "gender_focus": "all"
+  },
+  {
+    "id": "bs-tran-thu-ha",
+    "name": "Trần Thu Hà",
+    "title": "ThS.BS",
+    "department_id": "tieu-hoa",
+    "facility_ids": ["vinmec-central-park"],
+    "specialties": ["Gan mật", "Rối loạn tiêu hóa", "Nội tổng quát"],
+    "bio": "Tập trung vào bệnh lý tiêu hóa và đánh giá triệu chứng buồn nôn, rối loạn tiêu hóa.",
+    "languages": ["vi"],
+    "gender_focus": "all"
+  },
+  {
+    "id": "bs-le-quang-vu",
+    "name": "Lê Quang Vũ",
+    "title": "BSCKII",
+    "department_id": "than-kinh",
+    "facility_ids": ["vinmec-times-city", "vinmec-da-nang"],
+    "specialties": ["Đau đầu", "Đột quỵ", "Tê tay chân"],
+    "bio": "Chuyên về thần kinh tổng quát, sàng lọc triệu chứng cần cấp cứu.",
+    "languages": ["vi", "en"],
+    "gender_focus": "all"
+  },
+  {
+    "id": "bs-phan-minh-duc",
+    "name": "Phan Minh Đức",
+    "title": "PGS.TS.BS",
+    "department_id": "tim-mach",
+    "facility_ids": ["vinmec-times-city", "vinmec-central-park"],
+    "specialties": ["Tim mạch can thiệp", "Tăng huyết áp", "Hồi hộp"],
+    "bio": "Chuyên gia tim mạch với lịch khám ưu tiên cho ca nghi ngờ đau ngực, khó thở.",
+    "languages": ["vi", "en"],
+    "gender_focus": "all"
+  },
+  {
+    "id": "bs-nguyen-thi-lan",
+    "name": "Nguyễn Thị Lan",
+    "title": "BS",
+    "department_id": "nhi",
+    "facility_ids": ["vinmec-smart-city", "vinmec-da-nang"],
+    "specialties": ["Nội nhi", "Sốt trẻ em", "Hô hấp nhi"],
+    "bio": "Điều hướng khám cho trẻ em và các triệu chứng phổ biến ở nhi.",
+    "languages": ["vi"],
+    "gender_focus": "all"
+  },
+  {
+    "id": "bs-do-thu-trang",
+    "name": "Đỗ Thu Trang",
+    "title": "BSCKI",
+    "department_id": "san-phu-khoa",
+    "facility_ids": ["vinmec-central-park", "vinmec-times-city"],
+    "specialties": ["Phụ khoa", "Khám thai", "Rối loạn kinh nguyệt"],
+    "bio": "Phù hợp cho bệnh nhân nữ cần đặt lịch khám phụ khoa và sản khoa.",
+    "languages": ["vi", "en"],
+    "gender_focus": "female"
+  },
+  {
+    "id": "bs-vu-duc-thanh",
+    "name": "Vũ Đức Thành",
+    "title": "ThS.BS",
+    "department_id": "than-tiet-nieu",
+    "facility_ids": ["vinmec-times-city", "vinmec-central-park"],
+    "specialties": ["Tiết niệu nam", "Sỏi thận", "Tiểu buốt"],
+    "bio": "Dành cho bệnh nhân có vấn đề tiết niệu và cần điều hướng đúng khoa.",
+    "languages": ["vi"],
+    "gender_focus": "male"
+  }
+]

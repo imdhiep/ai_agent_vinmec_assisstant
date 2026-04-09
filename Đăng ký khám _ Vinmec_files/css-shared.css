@@ -1,0 +1,48 @@
+.modal-content {
+  background-color: var(--bg-white);
+  position: relative;
+  border-radius: 10px;
+  padding: 20px;
+}
+.modal-close {
+  width: 30px;
+  height: 30px;
+  background-color: var(--bg-white);
+  border: none;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  z-index: 1000;
+  right: 20px;
+  cursor: pointer;
+}
+#modal-call-button .modal-body {
+  position: relative;
+  display: flex;
+  background-color: var(--bg-white);
+
+  flex-direction: column;
+}
+@media screen and (max-width: 767px) {
+  #modal-call-button .modal-body {
+    overflow-y: scroll;
+    max-height: 80vh;
+  }
+}
+.glide__slide {
+  display: inline-flex;
+  justify-content: center;
+}
+.list_result_search ul {
+  list-style: none !important;
+}
+.list-subtitle,
+.list_sick_right,
+.list_sick_most,
+.list_number_vision,
+.lis_partner,
+.list_drug,
+.list_result_AZ,
+.socical-share {
+  list-style: none !important;
+}

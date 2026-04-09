@@ -1,0 +1,92 @@
+[
+  {
+    "id": "slot-001",
+    "doctor_id": "bs-nguyen-hoang-minh",
+    "facility_id": "vinmec-times-city",
+    "start_at": "2026-04-10T08:00:00",
+    "end_at": "2026-04-10T08:30:00",
+    "status": "available",
+    "consultation_fee": 450000
+  },
+  {
+    "id": "slot-002",
+    "doctor_id": "bs-nguyen-hoang-minh",
+    "facility_id": "vinmec-smart-city",
+    "start_at": "2026-04-10T10:00:00",
+    "end_at": "2026-04-10T10:30:00",
+    "status": "booked",
+    "consultation_fee": 450000
+  },
+  {
+    "id": "slot-003",
+    "doctor_id": "bs-tran-thu-ha",
+    "facility_id": "vinmec-central-park",
+    "start_at": "2026-04-10T09:30:00",
+    "end_at": "2026-04-10T10:00:00",
+    "status": "available",
+    "consultation_fee": 420000
+  },
+  {
+    "id": "slot-004",
+    "doctor_id": "bs-le-quang-vu",
+    "facility_id": "vinmec-times-city",
+    "start_at": "2026-04-10T13:30:00",
+    "end_at": "2026-04-10T14:00:00",
+    "status": "available",
+    "consultation_fee": 500000
+  },
+  {
+    "id": "slot-005",
+    "doctor_id": "bs-le-quang-vu",
+    "facility_id": "vinmec-da-nang",
+    "start_at": "2026-04-10T15:30:00",
+    "end_at": "2026-04-10T16:00:00",
+    "status": "held",
+    "consultation_fee": 500000
+  },
+  {
+    "id": "slot-006",
+    "doctor_id": "bs-phan-minh-duc",
+    "facility_id": "vinmec-times-city",
+    "start_at": "2026-04-10T11:00:00",
+    "end_at": "2026-04-10T11:30:00",
+    "status": "unavailable",
+    "consultation_fee": 650000
+  },
+  {
+    "id": "slot-007",
+    "doctor_id": "bs-phan-minh-duc",
+    "facility_id": "vinmec-central-park",
+    "start_at": "2026-04-10T16:30:00",
+    "end_at": "2026-04-10T17:00:00",
+    "status": "available",
+    "consultation_fee": 650000
+  },
+  {
+    "id": "slot-008",
+    "doctor_id": "bs-nguyen-thi-lan",
+    "facility_id": "vinmec-smart-city",
+    "start_at": "2026-04-10T08:30:00",
+    "end_at": "2026-04-10T09:00:00",
+    "status": "available",
+    "consultation_fee": 350000
+  },
+  {
+    "id": "slot-009",
+    "doctor_id": "bs-do-thu-trang",
+    "facility_id": "vinmec-central-park",
+    "start_at": "2026-04-10T14:30:00",
+    "end_at": "2026-04-10T15:00:00",
+    "status": "available",
+    "consultation_fee": 480000
+  },
+  {
+    "id": "slot-010",
+    "doctor_id": "bs-vu-duc-thanh",
+    "facility_id": "vinmec-times-city",
+    "start_at": "2026-04-10T09:00:00",
+    "end_at": "2026-04-10T09:30:00",
+    "status": "available",
+    "consultation_fee": 460000
+  }
+]

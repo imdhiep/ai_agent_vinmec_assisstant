@@ -1,0 +1,118 @@
+@media screen and (min-width: 768px) {
+  .modal-content {
+    max-width: 80vh;
+    max-height: 90vh;
+  }
+  .modal-large {
+    width: 600px;
+  }
+  .modal-medium {
+    width: 400px;
+  }
+  .modal-small {
+    width: 300px;
+  }
+  .modal-body .phone-number {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+  .modal-body .title {
+    color: var(--menu-blue);
+    margin: 10px;
+  }
+  .modal-body .content {
+    padding: 10px;
+  }
+  .modal h4 {
+    margin: 15px;
+  }
+  .modal .button-group {
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  .modal .button-group button {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-radius: 7px;
+    width: 120px;
+    justify-content: space-around;
+  }
+  .doctor-thumb-small {
+    aspect-ratio: 1;
+  }
+  .doctor-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    /* width: 280px; */
+    padding: 10px;
+  }
+}
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  word-break: keep-all;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+  background-color: #f8f9fa;
+  font-weight: bold;
+  text-align: left;
+  word-break: keep-all;
+}
+
+.table td {
+  vertical-align: top;
+  text-align: left;
+  word-break: keep-all;
+}
+
+.table-hover tbody tr:hover {
+  color: #212529;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-responsive > .table-bordered {
+  border: 0;
+}
+@media (max-width: 768px) {
+  .table-responsive {
+    border: 0;
+  }
+}

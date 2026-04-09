@@ -1,0 +1,26 @@
+[
+  {
+    "specialty_keywords": ["Tiêu hóa", "Gan mật", "Nội soi tiêu hóa"],
+    "symptom_keywords": ["đau bụng", "buồn nôn", "tiêu chảy", "táo bón", "đầy bụng", "ợ chua"]
+  },
+  {
+    "specialty_keywords": ["Tim mạch", "Tim mạch can thiệp"],
+    "symptom_keywords": ["đau ngực", "khó thở", "hồi hộp", "đánh trống ngực", "tăng huyết áp"]
+  },
+  {
+    "specialty_keywords": ["Thần kinh", "Đột quỵ"],
+    "symptom_keywords": ["đau đầu", "chóng mặt", "tê tay", "mất ngủ", "run tay"]
+  },
+  {
+    "specialty_keywords": ["Nhi", "Nhi khoa", "Nội nhi"],
+    "symptom_keywords": ["sốt", "ho", "trẻ em", "em bé", "biếng ăn"]
+  },
+  {
+    "specialty_keywords": ["Sản", "Phụ khoa", "Sức khỏe phụ nữ"],
+    "symptom_keywords": ["kinh nguyệt", "mang thai", "đau bụng dưới", "ra huyết", "phụ khoa"]
+  },
+  {
+    "specialty_keywords": ["Thận tiết niệu", "Tiết niệu nam"],
+    "symptom_keywords": ["tiểu buốt", "tiểu rắt", "đau hông lưng", "tiểu đêm", "sỏi thận"]
+  }
+]

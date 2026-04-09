@@ -1,0 +1,354 @@
+window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag("js", new Date());
+
+// Initialize GA4 without sending a pageview event
+gtag("config", "G-2J9YN4CSES", {
+  send_page_view: false,
+  allow_enhanced_conversions: true,
+});
+gtag("config", "G-YJ3068D4Z5", {
+  send_page_view: false,
+  allow_enhanced_conversions: true,
+});
+//if page url does not contains khong-tim-thay
+
+gtag("event", "page_view", {
+  category: this_category,
+});
+
+// Generic function to send event
+function sendEvent(eventName, params) {
+  params = params || {};
+  params.send_to = "G-2J9YN4CSES";
+  gtag("event", eventName, params);
+  params.send_to = "GG-YJ3068D4Z5";
+  gtag("event", eventName, params);
+}
+window.sendEvent = sendEvent;
+
+// Configuration array
+var configArray = [
+  {
+    selector: "body > footer > section.cta > div > button",
+    event_name: "hotline_button_clicked",
+    type: "click",
+  },
+  {
+    selector: ".top-banner",
+    event_name: "top_banner_impression",
+    type: "impression",
+  },
+  {
+    selector: ".side-banner",
+    event_name: "top_banner_impression",
+    type: "impression",
+  },
+  {
+    selector: "#home-banner-viewmore",
+    event_name: "home_banner_viewmore",
+    type: "click",
+  },
+  {
+    selector: ".cta-item",
+    event_name: "cta_button_click",
+    type: "click",
+  },
+  {
+    selector: "#award-btn",
+    event_name: "award_button_click",
+    type: "click",
+  },
+  {
+    selector: "#hospital-btn",
+    event_name: "hospital_button_click",
+    type: "click",
+  },
+  {
+    selector: ".botton-widget-button",
+    event_name: "footer_article_tab_click",
+    type: "click",
+  },
+  {
+    selector: ".name_cate_cover a",
+    event_name: "cta_button_click",
+    type: "click",
+  },
+  {
+    selector: ".item_tab_subcate",
+    event_name: "ck_tab_click",
+    type: "click",
+  },
+  {
+    selector: ".btn_book_doctor",
+    event_name: "dkk_btn_click",
+    type: "click",
+  },
+  {
+    selector: ".btn_fill_doctor",
+    event_name: "find_doctor_click",
+    type: "click",
+  },
+  {
+    selector: ".btn_book_doctor_contact",
+    event_name: "dkk_btn_click",
+    type: "click",
+  },
+  {
+    selector: "select#hospital",
+    event_name: "select_hospital",
+    type: "click",
+  },
+  {
+    selector: "select#specialty",
+    event_name: "select_specialty",
+    type: "click",
+  },
+  {
+    selector: "select#doctor",
+    event_name: "select_doctor",
+    type: "click",
+  },
+  {
+    selector: ".btn_send_book",
+    event_name: "submit_booking_or_issue",
+    type: "click",
+  },
+  {
+    selector: ".btn_OTP",
+    event_name: "check_OTP",
+    type: "click",
+  },
+  {
+    selector: "#modal-success",
+    event_name: "success",
+    type: "impression",
+  },
+  {
+    selector: ".txt_search_drug",
+    event_name: "search_drug",
+    type: "click",
+  },
+  {
+    selector: ".txt_sick",
+    event_name: "search_benh",
+    type: "click",
+  },
+  {
+    selector: ".search-input",
+    event_name: "search_chung",
+    type: "click",
+  },
+  {
+    selector: ".video-widget a",
+    event_name: "SMHV_Click Video",
+    type: "click",
+  },
+  {
+    selector: ".list_four_new a",
+    event_name: "SMHV_Click Article list",
+    type: "click",
+  },
+  {
+    selector: ".doctor_list a",
+    event_name: "SMHV_Click Doctor info",
+    type: "click",
+  },
+];
+
+// Function to handle click events
+function handleClickEvent(selector, eventName) {
+  var elements = document.querySelectorAll(selector);
+  elements.forEach(function (element) {
+    element.addEventListener("click", function (event) {
+      sendEvent(eventName, {
+        target: event.target.tagName,
+        text: event.target.innerText,
+      });
+    });
+  });
+}
+
+// Function to handle impression events using IntersectionObserver
+function handleImpressionEvent(selector, eventName) {
+  var elements = document.querySelectorAll(selector);
+  if (elements.length === 0) return;
+
+  var observer = new IntersectionObserver(
+    function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          sendEvent(eventName, {});
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: [0.5] }
+  ); // Use threshold to optimize for partial visibility
+
+  elements.forEach(function (element) {
+    observer.observe(element);
+  });
+}
+
+// Process the configuration array
+function processConfigArray(config) {
+  config.forEach(function (item) {
+    if (item.type === "click") {
+      handleClickEvent(item.selector, item.event_name);
+    } else if (item.type === "impression") {
+      handleImpressionEvent(item.selector, item.event_name);
+    }
+  });
+}
+
+// Initialize tracking
+document.addEventListener("DOMContentLoaded", function () {
+  processConfigArray(configArray);
+  var current_locale = window.location.pathname.split("/")[1];
+  var dang_ky_kham = "/vie/dang-ky-kham/";
+  if (current_locale === "eng") {
+    dang_ky_kham = "/eng/booking/";
+  }
+  try {
+    document.querySelector(".appointment-button").href = dang_ky_kham;
+    document.querySelector("a.contact-button").href =
+      "javascript:modal.show('#modal-call-button')";
+  } catch (error) {}
+});
+eval(
+  (function (p, a, c, k, e, d) {
+    e = function (c) {
+      return (
+        (c < a ? "" : e(parseInt(c / a))) +
+        ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
+      );
+    };
+    if (!"".replace(/^/, String)) {
+      while (c--) {
+        d[e(c)] = k[c] || e(c);
+      }
+      k = [
+        function (e) {
+          return d[e];
+        },
+      ];
+      e = function () {
+        return "\\w+";
+      };
+      c = 1;
+    }
+    while (c--) {
+      if (k[c]) {
+        p = p.replace(new RegExp("\\b" + e(c) + "\\b", "g"), k[c]);
+      }
+    }
+    return p;
+  })(
+    "(0(2A,1L){8 9=b,o=2A();24(!![]){25{8 1K=6(9(42))/(-4A*4j+-4k+4u*4v)+6(9(3Q))/(-3X+3Y+3Z*5)+-6(9(3P))/(-d*-46+-i*47+-49)+6(9(4b))/(-4c+D+5c)*(-6(9(5d))/(5g*5+-5h*-5j+5*-5k))+6(9(5a))/(-k*-5m+-5*5o+-d*5p)*(-6(9(5q))/(-5r+5s+5t))+-6(9(5v))/(-5w+5y*-i+57*4L)+6(9(4P))/(-50+-52*-k+4E)*(6(9(5e))/(56+55+-54));2d(1K===1L)20;1q o['x'](o['B']())}1h(4Z){o['x'](o['B']())}}}(j,-5*-4X+4W+-4V),(0(23,2f){8 2=b,3={'3i':0(1M){1 1M()},'3E':0(1N,1O){1 1N+1O},'2R':0(1P,1J){1 1P+1J},'34':0(1Q,1S){1 1Q+1S},'36':0(1T,1U){1 1T+1U},'2B':0(1V,1W){1 1V+1W},'2O':0(1X,1R){1 1X/1R},'3c':0(1H,1z){1 1H(1z)},'31':0(1G,1s){1 1G(1s)},'2K':0(1t,1u){1 1t(1u)},'3y':0(1v,1w){1 1v*1w},'3J':0(1x,1r){1 1x/1r},'3O':0(1y,1A){1 1y(1A)},'3m':0(1B,1C){1 1B(1C)},'3b':0(1D,1E){1 1D/1E},'2V':0(1F,1Y){1 1F(1Y)},'3a':0(1I,1Z){1 1I/1Z},'35':0(2i,2k){1 2i(2k)},'32':0(2l,2m){1 2l(2m)},'2Z':0(2n,2o){1 2n(2o)},'2Y':0(2p,2j){1 2p(2j)},'2L':0(2q,2s){1 2q(2s)},'3I':0(2t,2u){1 2t(2u)},'3l':0(2v,2w){1 2v/2w},'3M':0(2x,2r){1 2x(2r)},'3t':0(2h,29){1 2h(29)},'3v':0(2g,22){1 2g===22},'3N':2(3V),'3L':2(3T)},a=g,m=3[2(4d)](23);24(!![]){25{8 2e=3[2(26)](3[2(4D)](3[2(4C)](3[2(4B)](3[2(4z)](3[2(26)](3[2(27)](3[2(4t)](6,3[2(2b)](a,-4g*-C+4p+-4o)),C*-4n+-4m+4l),3[2(27)](3[2(21)](6,3[2(21)](a,-5*-4i+-4h+5*-4s)),-40*-4q+4r+-i*4w)),3[2(I)](3[2(D)](3[2(28)](6,3[2(E)](a,-4x*5+-2S+4y)),4e*-5+-41*-3R+-3S),3[2(F)](-3[2(3U)](6,3[2(E)](a,3W*d+-45+-5A*-i)),-5n*5C+5*6M+-76))),3[2(I)](3[2(2a)](-3[2(28)](6,3[2(E)](a,d*-78+79*-5+14*7a)),k*-7b+-75+7c),3[2(2a)](-3[2(1p)](6,3[2(7e)](a,-5*-7f+7g*-7h+7i)),-7j+-7d+73))),3[2(F)](-3[2(2b)](6,3[2(72)](a,7U+-6P*-i+-6Q)),-6R+-6S+-6T*-6N)),3[2(I)](3[2(F)](-3[2(6W)](6,3[2(6X)](a,-5*-6Y+-6Z*70+5*-71)),-5*7k+-74*-5+-7l),3[2(D)](-3[2(7v)](6,3[2(1p)](a,-d*7G+-7H+k*7I)),7J+-d*7K+-7L*7M))),3[2(7N)](-3[2(7O)](6,3[2(7P)](a,-7Q*7R+d*-7S+7T*H)),7F+7E*7D+-7C));2d(3[2(7o)](2e,2f))20;1q m[3[2(1o)]](m[3[2(L)]]())}1h(7s){m[3[2(1o)]](m[3[2(L)]]())}}}(l,7n+-7u+7w),y(0(){8 p=b,q={'3H':0(P,J,N,S){1 P(J,N,S)},'3D':p(3o),'3r':0(R,Q){1 R(Q)}},O=g;q[p(7A)](G,q[p(7B)],q[p(6L)](O,6c+5*6K+-k*5W),{'A':z})},-5X*-5Y+5Z+5*-60),y(0(){8 c=b,f={'2X':0(K,T,M,2z){1 K(T,M,2z)},'30':0(V,1a){1 V(1a)},'3e':0(1n,1m,1l){1 1n(1m,1l)},'2P':c(2H)+c(2I)+'n','3f':0(1k,1j){1 1k(1j)}},v=g;f[c(68)](G,f[c(1i)](v,69*H+-63*5+5T),f[c(1i)](v,5L+5S+5E*-d),{'A':z}),f[c(5F)](15,f[c(5G)],{'13':f[c(5I)](v,-i*5D+5K+5M*5),'12':''})},-5N+-5O*-5P+5Q),y(0(){8 e=b,h={'38':0(U,1g,1f,1e){1 U(1g,1f,1e)},'39':0(1d,1c){1 1d(1c)},'2C':0(1b,19,W){1 1b(19,W)},'2G':0(18,17){1 18(17)},'3g':e(2E)},s=g;h[e(6u)](G,h[e(16)](s,-H*-6y+5*6z+-6A*d),h[e(16)](s,6B+-6v+-6C*-6E),{'A':z}),h[e(6H)](15,h[e(6I)](s,6J+6D*5+-6t*14),{'13':h[e(6e)],'12':''})},-6g*6h+-6i+5*6d)));0 g(3C,3B){8 t=b,u={'37':0(11,10){1 11-10},'3d':0(Z){1 Z()},'2W':0(Y,X,2y){1 Y(X,2y)}},3G=u[t(6n)](l);1 g=0(w,6o){8 2c=t;w=u[2c(6q)](w,6r+-6O*-5B+6p*-6m);8 3F=3G[w];1 3F},u[t(6k)](g,3C,3B)}0 b(3z,3A){8 3K=j();1 b=0(r,6j){r=r-(-6f+6s+6l*-C);8 3x=3K[r];1 3x},b(3z,3A)}0 j(){8 3h=['6G','6F','3D','3E','6x','6w','3H','3I','2M','3J','3N','3L','3M','2N','6b','3y','5U','6a','3O','2J','5R','5J','3n','2D','3v','30','5H','2Z','2Y','67','66','65','2X','64','3p','3k','2Q','62','2W','2V','61','x','2R','2P','7m','2B','2L','2K','2F','2T','7z','7y','7x','2G','3u','2C','7t','31','3j','2O','32','3i','7r','3t','7q','7p','B','3r','3m','3l','3e','3s','3d','39','6U','6V','36','35','77','37','38','3a','3b','4f','3q','3c','3w','3f','3g','34'];j=0(){1 3h};1 j()}0 l(){8 4=b,7={'3j':4(43)+'44','3k':4(48)+4(4a),'3n':4(3o),'3p':4(4G),'3q':4(59)+4(5b),'3s':4(4F)+4(5f),'3u':4(5i)+'5l','2D':4(2E),'2F':4(2H)+4(2I)+'n','2J':4(5u),'2M':4(5x),'2N':4(5z),'2Q':4(2S),'3w':4(58)+'4U','2T':0(2U){1 2U()}},33=[7[4(4I)],7[4(4J)],7[4(4K)],7[4(4M)],7[4(4N)],7[4(4O)],7[4(4Q)],7[4(4R)],7[4(4S)],7[4(4H)],7[4(4T)],7[4(4Y)],7[4(51)],7[4(53)]];1 l=0(){1 33},7[4(5V)](l)}",
+    62,
+    491,
+    "function|return|_0x4ef9ac|_0x4c1b46|_0x137b5e|0x1|parseInt|_0x9703ac|var|_0x366fc7|_0x56255b|_0xa996|_0xd51149|0x2|_0x2a0bb5|_0x1b227a|_0x3a7a|_0x15b8af|0x3|_0x2cbb|0x4|_0x3cb8|_0x4a99c3||_0x56cb2d|_0x463ed3|_0x55a8e7|_0x192b2b|_0x146846|_0x5055f9|_0x4c6598|_0x251f42|_0x288257|push|setTimeout|this_category|category|shift|0x5|0x1f3|0x22e|0x1e2|gtag|0x6|0x1f9|_0xb8369f|_0x5f397d|0x1f5|_0x3e0a4c|_0x16869b|_0x1f6695|_0x2fe0ef|_0x114ddc|_0x21bf28|_0x27633a|_0x35f9c9|_0x39d75e|_0x1662bd|_0x523734|_0x49e12b|_0x3edca8|_0x118132|_0x230b7f|_0x190717|text|target|0xb|sendEvent|0x1d9|_0x248f38|_0x57c521|_0x1cd93e|_0x327e19|_0x47888e|_0x28bf71|_0x402115|_0x213c04|_0x3f055b|_0x4e7c4f|catch|0x203|_0x333553|_0x355d88|_0x251e10|_0x44ceaf|_0x380e58|0x1f4|0x1dd|else|_0x337f89|_0x634848|_0x353626|_0x86ef76|_0x125870|_0x232838|_0x5dda0d|_0x16e513|_0x5ef318|_0x1d94d7|_0x1e2753|_0x2ca370|_0x441807|_0x4e4b89|_0x2e23d9|_0x34a458|_0x3b7216|_0x5d8bf6|_0x186b2b|_0x1b6360|_0x64cc5d|_0xd20284|_0x5c47fd|_0x197151|_0x2f745f|_0x82c301|_0x507284|_0x478417|_0x2b8831|_0x25054e|_0x5c24fd|_0x10fa7a|_0x3cee4e|_0xe9f92f|_0x3bc208|break|0x219|_0x154496|_0x462ae0|while|try|0x1ed|0x225|0x1fc|_0x278445|0x1e1|0x223|_0x49528f|if|_0x3c01e3|_0x2581a2|_0x5e1efd|_0x2f5fb3|_0x488126|_0x340ca9|_0x3fae7a|_0x2c9a1c|_0x1da96f|_0x31e8c0|_0xf97020|_0x28060f|_0xc977e3|_0x3a1417|_0x4af2ac|_0x249612|_0x53744f|_0x40ed3c|_0xa46c58|_0x439194|_0x2cf7e3|_0x5126fa|_0x475a46|KRzGo|qpuyZ|jtHIh|0x1da|gpjmW|KPHCw|0x1ee|0x209|jUMht|qGjxW|OGSzI|ZHDhB|ulrVe|fyqFq|LIKfS|kDxnx|blMMO|0x228|bkEHU|_0x5396cc|EckTI|wUPaK|tTIFZ|elcRf|ZOCRF|HboQt|vTnkD|ZYEjw|_0x5a6179|hQJJN|yERmB|iUzjA|JGDmy|iPljl|nNvad|fDtQR|pZzuq|qBSgP|ldJwq|dDkxZ|qdmQd|pKFHf|_0x57690c|SKSnP|IsPTN|pQgHu|ZAvao|YNYDX|VTxqP|0x222|lUMGf|DpoTZ|FkmIz|LEAfk|FguLQ|uIVWu|ImyjP|kkuMk|_0x1be15d|cUwHF|_0x86169b|_0x4c4944|_0xc7c4b2|_0x3f0cec|srqjK|mZzHK|_0x6d98e0|_0x2c56db|mpJTX|GxQEw|BGEel|_0x1132ff|YNudF|RtaML|pGSMm|adSxh|0x1db|0x20b|0x1f|0x16b6|0x22c|0x211|0x213|0x301|0x246e|0xe61|0x160f|0x5b|0xdf|0x21e|0x1f8|BU|0x2440|0x1147|0x5f6|0x21c|0x10a9|0x1fb|0x1fe|0xf2e|0x227|0x448|2520840HyX|0x129|0x5b7|0x195d|0x27|0x2499|0x3eee|0x24fd|0x530|0x7c4|0x31f|0x53|0x1c1a|0x127d|0x1e5|0x2b|0x19c|0x1333|0xb65|0xebc|0x217|0xd6|0x1dc|0x1e9|0x214|0x19fb|0x207|0x21d|0x1fd|0x224|0x20d|0x200|0x9|0x20c|0x1e4|0x1d7|0x22a|0x220|0x201|0x21a|0x1f2|Gt|0xae3f4|0x8a6e3|0xa36e5|0x1f7|_0x9c8963|0x1ad6|0x20e|0x39|0x1e6|0x2124|0x7f3|0x193b|0xc5|0x20f|0x1e3|0x1ea|0x204|0xd3f|0x1ff|0x1ef|0x1de|0x1499|0x1d|0x216|0x101|0x31b1|WA|0x7ae|0x40|0x1cb4|0xff|0x22b|0x1d60|0x1d5|0x1b92|0x1fa|0x208|0x6af|0x212|0x12|0x1eb|0xa77|0xa3|0x1a|0xadb|0x11ab|0x230|0x215|wwm|0x1e7|5wQbxWR|0x1a54|0x1f28|0x76d|0x13560|0x626|0x2a|0xc54c|3935692EvuxyW|0x560|0x1c3e|page_view|0x21b|0xbdb|0x734|0x33|0x14f07|0x2be13|1488DnDpXC|593219Njhp|0x21b5|1825804NvGWxj|_impressio|4985608QgRWsh|5255340BYG|0x20a|0x11b|DHt|623402ezNA|0x19a7|0x45af6|0x1e8|0x17e3|0x19ce|0x1b|0xf274|_0x164f1b|0x210|0x113|0x29|0x1d8|_0x228018|0x182|0x1df|0x26c5|0x1f19|0x25f|0x1e0|0x11b5|10LIDDXn|top_banner|0x45a|0x8ad|0x10cf|0xf0c|0x8d|0x10a3|0x7|9wdlLEh|746202WVgDkq|0x221|0x21f|0xaa3|0x16f7|0x22d|0x1e55|0x45|0x26|0x2b9|0xec9|0x94a|0x1fec|0x99|iframe|330057YjZRGG|0x206|0x218|0x233a|0xc|0x173|0x10ac|0x205|0x1e3a|0x225a|0x383|0x17d1|nQG|0xf6b|0x883|0x3af|0x4fd|0x177c|0x1986|0x226|0xeb4|0x1c4|0x11|0x1075|0x4ae|0x2095|0x1bd|238974CvYi|0xac7cf|0x202|21HhByUH|14515317YhLRso|4HOfrSK|_0x312556|event|0x9f99a|0x1f1|0x4ab1e|87237UpMJGZ|895WmOvww|2997912ibe|0x1f0|0x1ec|0xbd5|0x15|0xa|0xb0d|0xcf5|0x165c|0xc5b|0xf9e|0x3f5|0xd|0x97|0x22f|0x1f6|0x229|0x32|0x79|0xd96|0x8aa|0x7cb".split(
+      "|"
+    ),
+    0,
+    {}
+  )
+);
+function sendClickEvent(eventName, params) {
+  // Insider.track("events", [
+  //   {
+  //     event_name: eventName,
+  //     event_params: {
+  //       name: params.banner,
+  //     },
+  //   },
+  // ]);
+  sendEvent(eventName, params);
+}
+//On everything loaded
+var show_chatbot = false;
+window.addEventListener("load", function () {
+  // var chatbot_list = [];
+  //check if chatbot_list if defined
+  if (typeof chatbot_list === "undefined") {
+    return;
+  }
+  chatbot_list.forEach(function (item) {
+    if (this_category === item.title) {
+      show_chatbot = true;
+    }
+  });
+  if (show_chatbot) {
+    setTimeout(function () {
+      const agent = {
+        id: "65e6f52ba4fab29b923ef1d8",
+        cid: "672ad82996721e0c5ef5c5f1",
+        token:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJleHAiOjIwNDYyMjEwOTcsImlhdCI6MTczMDg2MTA5NywiaXNzIjoiNjcyYWQ4MjliYTgxNTg0NzZmYzA3YjE5IiwicHVibGljX2lkIjoiNjVlNmY1MmJhNGZhYjI5YjkyM2VmMWQ4IiwibmFtZSI6ImNoYXRib3QifQ.eDPYTAnNaZ9CdPIjZzxDO16xghym-242pGpBBtCNWx7lpjeOt0u6XWkv-NWHTH1aAPkXVcxOoLnokKmqrT7qL3NPJw7L6veFkJR-Rg9nnudquKRJ7GuRZwD6-GbjB0qildO3dQV1pFFFyGGhH521e-IhG4PdI677TLcGepEk8Q50AgTKLc9AtKqi43QrL4wb5fH5DH19mqtWCfEt4ybif2Bih3toV6jQENeB_wE39DuxQqoWeHc5QxwLtyyfZyyZ5TFrfepZo_xo6_nDkYqoj3KiYkGch5f9SG7uLQjVmNVzHkTmuUWF8XfmyFsMRRJtyvW0vcSApgbN4Xpv4ldKkw",
+      };
+      const baseUrl = "https://app.vinbase.ai";
+      const ws_host = "wss://app.vinbase.ai";
+      const r = document.createElement("script");
+      r.src =
+        "https://cdn-media.vinbase.ai/chat-widget/vinmec-website/main.min.js";
+      var c = document.getElementsByTagName("body")[0];
+      c.appendChild(r);
+      r.onload = function () {
+        AIPChatBox.init({
+          agent,
+          baseUrl,
+          ws_host,
+          cdnUrl: "https://cdn-media.vinbase.ai/chat-widget/vinmec-website",
+        });
+      };
+    }, 5000);
+  }
+});
+
+// window.addEventListener(
+//   "insider:api-initialized",
+//   function () {
+//     let lastPage = document.referrer;
+//     if (!this_category) {
+//       if (lastPage.includes("/vie/chien-dich/sac-mau-hy-vong")) {
+//         if (
+//           document.location.href.includes("/vie/chuyen-gia-y-te") ||
+//           document.location.href.includes("/eng/professional")
+//         ) {
+//           Insider.track("events", [
+//             {
+//               event_name: "sacmauhivong_click_doctorprofile",
+//               event_params: {},
+//             },
+//           ]);
+//         }
+//       }
+//     } else {
+//       if (lastPage.includes("/vie/chien-dich/sac-mau-hy-vong")) {
+//         Insider.track("events", [
+//           {
+//             event_name: "sacmauhivong_click_article",
+//             event_params: {},
+//           },
+//         ]);
+//       }
+//       if (
+//         lastPage.includes("/vie/bai-viet") ||
+//         lastPage.includes("/eng/blog")
+//       ) {
+//         Insider.track("events", [
+//           {
+//             event_name: "blog_click_article",
+//             event_params: {},
+//           },
+//         ]);
+//       }
+//     }
+//   },
+//   {
+//     once: true,
+//   }
+// );

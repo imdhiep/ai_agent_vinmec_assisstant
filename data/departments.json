@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tieu-hoa",
+    "name": "Tiêu hóa - Gan mật",
+    "aliases": ["tiêu hóa", "gan mật", "dạ dày"],
+    "symptom_keywords": ["đau bụng", "buồn nôn", "tiêu chảy", "táo bón", "đầy bụng", "ợ chua"]
+  },
+  {
+    "id": "than-kinh",
+    "name": "Thần kinh",
+    "aliases": ["thần kinh", "đau đầu", "đột quỵ"],
+    "symptom_keywords": ["đau đầu", "chóng mặt", "tê tay", "mất ngủ", "run tay"]
+  },
+  {
+    "id": "tim-mach",
+    "name": "Trung tâm Tim mạch",
+    "aliases": ["tim mạch", "tim"],
+    "symptom_keywords": ["đau ngực", "hồi hộp", "đánh trống ngực", "khó thở", "tăng huyết áp"]
+  },
+  {
+    "id": "nhi",
+    "name": "Trung tâm Nhi",
+    "aliases": ["nhi", "trẻ em", "bé"],
+    "symptom_keywords": ["sốt", "ho", "biếng ăn", "trẻ em", "em bé"]
+  },
+  {
+    "id": "san-phu-khoa",
+    "name": "Trung tâm Sức khỏe phụ nữ",
+    "aliases": ["sản", "phụ khoa", "mang thai"],
+    "symptom_keywords": ["kinh nguyệt", "mang thai", "đau bụng dưới", "ra huyết", "phụ khoa"]
+  },
+  {
+    "id": "than-tiet-nieu",
+    "name": "Thận tiết niệu",
+    "aliases": ["thận", "tiết niệu", "tiết niệu nam"],
+    "symptom_keywords": ["tiểu buốt", "tiểu rắt", "đau hông lưng", "tiểu đêm", "sỏi thận"]
+  }
+]
